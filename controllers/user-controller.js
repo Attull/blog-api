@@ -1,5 +1,6 @@
 import User from "../model/User.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const getAllUser = async (req, res, next) => {
   let users;
@@ -61,8 +62,11 @@ export const login = async (req, res, next) => {
   const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
   if (!isPasswordCorrect) {
     return res.status(400).json({ message: "Incorrect Password" });
-  }            
+  }
+  
+  const token = jwt.sign({ id: existingUser._id },process.env.SECRET_KEY)
+
   return res
     .status(200)
-    .json({ message: "Login Successfull", user: existingUser });
+    .json({ message: "Login Successfull", user: existingUser, token : token });
 };
