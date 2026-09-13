@@ -7,13 +7,14 @@ import {
   getByUserId,
   updateBlog,
 } from "../controllers/blog-controller.js";
+import { protect } from "../middleware/authmiddleware.js";
 const blogRoute = express.Router();
 
 blogRoute.get("/", getAllBlogs);
-blogRoute.post("/add", addBlog);
-blogRoute.put("/update/:id", updateBlog);
+blogRoute.post("/add",protect, addBlog);
+blogRoute.put("/update/:id",protect, updateBlog);
 blogRoute.get("/:id", getById);
-blogRoute.delete("/:id", deleteBlog);
+blogRoute.delete("/:id",protect, deleteBlog);
 blogRoute.get("/user/:id", getByUserId);
-
+ 
 export default blogRoute;
