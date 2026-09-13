@@ -22,6 +22,14 @@ const userSchema = new Schema({
     type: mongoose.Types.ObjectId,
     ref: "Blog", 
     required: true }],
+  role:{
+    type:String,
+    enum:{
+      values:["guest", "admin"],
+      message: 'Role must be guest or admin'
+    },
+    default: "guest"
+  }
     
 });
 export default mongoose.model("User", userSchema);

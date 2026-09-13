@@ -15,7 +15,7 @@ export const getAllUser = async (req, res, next) => {
 };
 
 export const signup = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   
   let existingUser;
   try {
@@ -35,6 +35,7 @@ export const signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     blogs: [],
+    role
   });
 
   try {
